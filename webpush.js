@@ -1,28 +1,38 @@
 const webpush = require('web-push')
 // const vapidKeys = webpush.generateVAPIDKeys();
-//  console.log(vapidKeys)
 // VAPID keys should only be generated only once.
+// Use the code below to generate one
 const vapidKeys = {
     publicKey:
         'BEpETmfdXZZzjHQ8Y3FN75ZFokE26XIH77IRbD05bBCt8An_jUy-AZpdXhS32trf8V58MXKS1PeQ6JbBeJBzUNM',
     privateKey: 'I6sw6wAdZ3KoG9vmEe7aycAnWoDxemnkusTPz51IRqg',
 }
 
+// Note that we also included a "mailto:" string.
+// This string needs to be either a URL or a mailto email address.
+// This piece of information will actually be sent to the web push service as part of the request to trigger a push.
+// The reason this is done is so that if a web push service needs to get in touch with the sender, they have some information that will enable them to.
 webpush.setVapidDetails(
-    'mailto:example@yourdomain.org',
+    'mailto:bnagiyev@gmail.com',
     vapidKeys.publicKey,
     vapidKeys.privateKey
 )
 
-// This is the same output of calling JSON.stringify on a PushSubscription
+// This object is returned from frontend
+// by sw.pushManager.subscribe function
 const pushSubscription = {
     endpoint:
-        'https://fcm.googleapis.com/fcm/send/dcSNPwMprDU:APA91bGbRAcrGyO34RtiQOqvJ0lSp0rfRv1nTIbc8mGlzZj8ZZLqCiTEUPMkCinrcggtXLGtL5QAj-oMOeHgW401LVB5nwdP6cQBLZYBagFIG9Tc4FmIiZjuSUL3cGX5U5kAyr21xIfk',
+        'https://fcm.googleapis.com/fcm/send/fykGybCME2c:APA91bEjifLnSDGONbRRRIssJwGQR2ECyNeT3-WDa5M0S1Pj3a_XE1byL4wvbRdv5BTTc-Och7-D7K9i0ykHU0QV9TzC6HGhVudnz_PP_PaYujryQxiXLTsMCz0KFm-lG41rHqF0buVx',
     expirationTime: null,
     keys: {
-        p256dh: 'BC6LZYlSDRYvC2AgPFmVEfUBpE2hHg5x3jk9B6fyj_8wgzg9a9Xu185MHgStohlm1TMq1A9x8LwJBY66H26p41I',
-        auth: 'LYtwmUrDR-SewEfGOzcHDA',
+        p256dh: 'BP8G6GCeWnRtm7XuvqCgVP_fLiDBzlHNWEZG6X9SebYwIZpgeSCMNiQgpJthL1vVlOTVMmscxWMOLzLzp-c2Xzc',
+        auth: 'xQ6ZHSC-oi7ojBZeUl7NZQ',
     },
 }
 
-webpush.sendNotification(pushSubscription, 'Your Push Payload Text')
+const message = {
+    title: 'New Drop',
+    body: 'hey Check this bottle 2',
+    url: 'https://google.com',
+}
+webpush.sendNotification(pushSubscription, JSON.stringify(message))
