@@ -1,3 +1,5 @@
-self.addEventListener('push', () => {
-  self.registration.showNotification('Hello world!', options);
-});
+self.addEventListener('push', function (event) {
+    const promiseChain = self.registration.showNotification('Hello, World.')
+
+    event.waitUntil(promiseChain)
+})
