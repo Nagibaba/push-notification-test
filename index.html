@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
-  <body>
-    <button onclick="subscribe()">Subscribe</button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button onclick="subscribe()">Subscribe</button>
 
-    <script>
-      async function subscribe() {
-        let sw = await navigator.serviceWorker.ready;
-        let push = await sw.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey:
-            'BEpETmfdXZZzjHQ8Y3FN75ZFokE26XIH77IRbD05bBCt8An_jUy-AZpdXhS32trf8V58MXKS1PeQ6JbBeJBzUNM'
-        });
-        console.log(JSON.stringify(push));
-      }
+        <script>
+            async function subscribe() {
+                let sw = await navigator.serviceWorker.ready
+                let push = await sw.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey:
+                        'BEpETmfdXZZzjHQ8Y3FN75ZFokE26XIH77IRbD05bBCt8An_jUy-AZpdXhS32trf8V58MXKS1PeQ6JbBeJBzUNM',
+                })
+                console.log(JSON.stringify(push))
+                window.prompt(
+                    'Copy to clipboard: Ctrl+C, Enter',
+                    JSON.stringify(push)
+                )
+            }
 
-      if ('serviceWorker' in navigator) {
-        addEventListener('load', async () => {
-          let sw = await navigator.serviceWorker.register('./sw.js');
-          console.log(sw);
-        });
-      }
-    </script>
-  </body>
+            if ('serviceWorker' in navigator) {
+                addEventListener('load', async () => {
+                    let sw = await navigator.serviceWorker.register('./sw.js')
+                    console.log(sw)
+                })
+            }
+        </script>
+    </body>
 </html>
