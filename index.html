@@ -9,6 +9,8 @@
     <body>
         <button onclick="subscribe()">Subscribe</button>
 
+        <p id="text"></p>
+
         <script>
             async function subscribe() {
                 let sw = await navigator.serviceWorker.ready
@@ -18,10 +20,7 @@
                         'BEpETmfdXZZzjHQ8Y3FN75ZFokE26XIH77IRbD05bBCt8An_jUy-AZpdXhS32trf8V58MXKS1PeQ6JbBeJBzUNM',
                 })
                 console.log(JSON.stringify(push))
-                window.prompt(
-                    'Copy to clipboard: Ctrl+C, Enter',
-                    JSON.stringify(push)
-                )
+                document.getElementById('text').innerText = JSON.stringify(push)
             }
 
             if ('serviceWorker' in navigator) {

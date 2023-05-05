@@ -32,7 +32,7 @@ const pushSubscription = {
 
 const message = {
     title: 'New Drop',
-    body: 'hey Check this bottle 2',
-    url: 'https://google.com',
+    body: 'Drop is live',
+    url: 'https://winechain.co/drops',
 }
 webpush.sendNotification(pushSubscription, JSON.stringify(message))
